@@ -8,7 +8,7 @@ require 'faker'
 require 'pages'
 require 'headless'
 
-browser = Watir::Browser.new :chrome
+browser = Watir::Browser.new :firefox
 browser.window.maximize
 
 RSpec.configure do |config|
