@@ -1,2 +1,2 @@
-FROM: mipmip/watir-xvfb:latest
+FROM mipmip/watir-xvfb:latest
 
