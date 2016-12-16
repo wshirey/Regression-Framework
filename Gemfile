@@ -1,7 +1,7 @@
 source 'https://rubygems.org' do
   gem 'rspec'
-  gem 'watir'
-  gem 'page-object'
+  gem 'watir-webdriver', '0.9.1'
+  gem 'page-object', '1.1.1'
   gem 'faker'
   gem 'headless'
 end

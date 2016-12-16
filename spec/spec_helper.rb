@@ -1,7 +1,7 @@
 $LOAD_PATH << File.dirname(__FILE__) + '/../lib'
 
 require 'rspec'
-require 'watir'
+require 'watir-webdriver'
 require 'page-object'
 require 'page-object/page_factory'
 require 'faker'
@@ -12,8 +12,9 @@ browser = Watir::Browser.new :firefox
 browser.window.maximize
 
 RSpec.configure do |config|
-  Headless.new(display: 100, destroy_at_exit: false).start
+  @headless = Headless.new(display: 100, destroy_at_exit: false)
+  @headless.start
   config.include PageObject::PageFactory
   config.before(:all) { @browser = browser }
-  #config.after(:suite) { browser.close }
+  config.after(:suite) { browser.close }
 end

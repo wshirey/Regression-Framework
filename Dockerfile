@@ -1,11 +1,20 @@
 FROM ruby:2.3.1
 
-RUN apt-get update && apt-get install -y xvfb iceweasel
-RUN apt-get install -y git
-RUN gem install bundler
+RUN apt-get update && apt-get install -y \
+    xvfb \
+    iceweasel
 
-ADD . /app
-RUN cd /app && bundle install
-ENV PATH $PATH:/app
+RUN mkdir /specs
+VOLUME ["/specs", "/screenshots"]
 
-CMD while true; do sleep 1000; done
+RUN mkdir /dependencies
+
+ADD Gemfile /dependencies/Gemfile
+ADD Gemfile.lock /dependencies/Gemfile.lock
+ADD geckodriver /dependencies/geckodriver
+
+RUN cd /dependencies && bundle install
+ENV PATH=$PATH:/dependencies
+
+WORKDIR /specs
+CMD xvfb-run rspec
