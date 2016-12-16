@@ -9,6 +9,7 @@ RUN ln -s /usr/bin/xvfb-firefox /usr/bin/firefox
 
 ADD . /app
 RUN cd /app && bundle install
+RUN export PATH=$PATH:/app
 
 CMD while true; do sleep 1000; done
 

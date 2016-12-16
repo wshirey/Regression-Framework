@@ -2,16 +2,16 @@ $LOAD_PATH << File.dirname(__FILE__) + '/../lib'
 
 require 'rspec'
 require 'watir-webdriver'
-require 'page-object'
-require 'page-object/page_factory'
 require 'faker'
-require 'pages'
+require 'headless'
 
-browser = Watir::Browser.new :chrome
-browser.window.maximize
+
+
 
 RSpec.configure do |config|
-  config.include PageObject::PageFactory
+  Headless.new(display: 100, destroy_at_exit: false).start
+  browser = Watir::Browser.new :firefox
   config.before(:all) { @browser = browser }
   #config.after(:suite) { browser.close }
 end
+
