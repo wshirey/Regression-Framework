@@ -35,7 +35,6 @@ describe 'Create account' do
           page.content_div_element.when_present
           expect(page.content_div).to include("Currently sign in as #{@email}")
         end
-      end
-      
+     end
   end
 end

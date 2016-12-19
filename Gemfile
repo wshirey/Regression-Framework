@@ -4,4 +4,5 @@ source 'https://rubygems.org' do
   gem 'page-object', '1.1.1'
   gem 'faker'
   gem 'headless'
+  gem 'parallel_tests'
 end

@@ -53,4 +53,52 @@ The [faker](https://github.com/stympy/faker) can be used to generate random fake
 1. We've run into several scenarios where workflows are very similar or an abstraction could be made. We decided simplicity, readability, and accessibility are more valuable than conciseness in many cases. If you have a series of tests with a bunch of if conditions trying to determine what state the tests need to run, it's probably better to duplicate that test for each mode. 
 
 ## Run tests in Docker container
-`$ docker run -v /local/rspec/directory/:/specs image-name`
+```bash
+$ docker run -v /local/rspec/directory/:/specs image-name
+```
+
+This mounts the directory at `/local/rspec/directory` on the docker host to the
+`/specs` directory in the docker container. Note that the host directory must be
+the full path.
+
+
+## Selenium Grid
+
+- Install [Docker Compose](https://docs.docker.com/compose/install/)
+
+- Install `parallel_tests` gem
+
+- Start selenium grid. Omit the -d flag if you want to see the output of the
+individual browser nodes. This can be helpful for debugging and verifying
+that tests are being distributed correctly.
+
+```bash
+docker-compose -d up
+```
+
+
+- Scale firefox or chrome nodes
+
+```bash
+docker-compose scale \
+	firefox=num_of_nodes \
+	chrome=num_of_nodes
+```
+
+- Initialize your Watir script with a remote browser. The URL is the
+location of the Selenium grid. The Selenium grid will handle
+distributing tests to individual nodes.
+
+```ruby
+browser = Watir::Browser.new(
+	:remote,
+	:url => "http://localhost:4444/wd/hub"
+)
+```
+
+
+- Run tests in parallel
+
+```bash
+parallel_rspec -n num_of_threads spec
+```
