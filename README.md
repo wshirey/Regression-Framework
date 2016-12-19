@@ -102,3 +102,9 @@ browser = Watir::Browser.new(
 ```bash
 parallel_rspec -n num_of_threads spec
 ```
+
+- Shut down containers when finished
+
+```bash
+docker-compose down
+```
